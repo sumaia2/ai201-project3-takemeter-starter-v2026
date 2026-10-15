@@ -51,66 +51,45 @@ whether you hit them:
 
 ---
 
-## 1.
+## 1. Overall accuracy
 
-<!-- Your criterion. It must name a number. -->
+On the held-out test split, the model's overall accuracy is at least 0.50 in each of three seeds.
 
-
-
-**Why this target:**
-
-
+**Why this target:** I have three labels, so random guessing gets about 0.33. My test split will be about 30 posts, so one wrong post moves accuracy by about 0.03, and a very high target would mostly measure noise.
 
 ---
 
-## 2.
+## 2. Per-label F1
 
-<!-- Your criterion. -->
+On the held-out test split, every label (question, rant and tip) has an F1 of at least 0.60 in each of three seeds.
 
-
-
-**Why this target:**
-
-
+**Why this target:** My smallest label will have only about 10 posts in the test split, so its F1 will jump around between seeds. I chose 0.60 because a label scoring lower than that is one I would not trust the model to sort, and I expect this to be my hardest criterion to hold in all three seeds.
 
 ---
 
-## 3.
+## 3. Balance
 
-<!-- Your criterion. -->
+In labels.csv, no single label makes up more than 70% of the rows.
 
-
-
-**Why this target:**
-
-
+**Why this target:** This is the course limit. Rants look common in r/PharmacyTechnician, so one label could take over my data, and a model trained on a lopsided file learns to guess that label.
 
 ---
 
-## 4.
+## 4. Agreement with staff labels
 
-<!-- Your criterion. -->
+On the posts that staff also labeled, my labels match the staff label on at least 80% of posts.
 
-
-
-**Why this target:**
-
-
+**Why this target:** I wrote the label definitions before labeling, and I hold the CPhT, so I know this community's topics. I expect my disagreements to cluster on rant versus question, where I wrote a decision rule, so 80% allows about 1 mismatch in 5.
 
 ---
 
-## 5.
+## 5. Confidence
 
-<!-- Your criterion. -->
+Among test posts where the model's confidence is above 0.80, at least 90% are predicted correctly, in each of three seeds. I will also report how many test posts fell above 0.80.
 
-
-
-**Why this target:**
-
-
+**Why this target:** A confident answer should be more reliable than the model's answers overall. With only about 30 test posts, few predictions may be above 0.80, so I will report that count next to the result.
 
 ---
-
 <!-- ─────────────────────────────────────────────────────────────────────────
      UNIT 6 — read this before you change anything above.
 
