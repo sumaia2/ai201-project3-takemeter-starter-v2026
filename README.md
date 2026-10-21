@@ -45,24 +45,19 @@ I fine-tuned istilbert-base-uncased on my 156 labeled posts using the starter no
 ---
 
 ## Baseline vs. Trained
-
-<!-- Both models on the same posts. `python baseline.py --trained results.json`
-     prints this table for you. -->
+The baseline is facebook/bart-large-mnli, a general model that sorts posts using only my three label definitions (label_definitions.txt), with no training. The trained model is distilbert-base-uncased, fine-tuned on my 108 training posts. Both were scored on the same 24 held-out posts (test_split.csv). Device: CPU.
 
 | Measure | Baseline | Trained | Difference |
 |---|---|---|---|
-| Overall accuracy |  |  |  |
-| Macro F1 |  |  |  |
-| F1 — `label_one` |  |  |  |
-| F1 — `label_two` |  |  |  |
+| Overall accuracy | 0.625 | 0.583 | -0.042 |
+| Macro F1 | 0.396 | 0.246 | -0.150 |
+| F1: `question` | 0.743 | 0.737 | -0.006 |
+| F1: `rant` | 0.444 | 0.000 | -0.444 |
+| F1: `tip` | 0.000 | 0.000 | +0.000 |
 
-**What I predicted before I looked:**
-<!-- Milestone 1 asks you to write this BEFORE seeing the trained numbers. A
-     prediction made afterwards isn't one. -->
+**What I predicted before I looked:** I did not write down a prediction before seeing the numbers, so I don't have one. Looking back, I would have predicted my trained model would beat the baseline on `rant`, because it was trained on my own labels. It did not.
 
-**What the gap actually means:**
-<!-- If the baseline matched your trained model, your fine-tuning added
-     nothing — and that is a real finding, not a failure. Say it plainly. -->
+**What the gap actually means:** the trained model did not beat the baseline. It scored 0.583 accuracy against the baseline's 0.625, and it predicted `question` for almost every post, scoring 0.0got `rant` partly right.
 
 
 
@@ -70,7 +65,7 @@ I fine-tuned istilbert-base-uncased on my 156 labeled posts using the starter no
 
 ## Run Log — Before
 
-<!-- Five criteria across three seeds. The notebook's section 6 prints the
+<!-- Five criteria across three seeds. The notebook's section 6 prin00 on `rant` and `tip`. That is an imbalance problem: only 25 rants and 20 tips were in the 108 training posts, so the model learned to guess the majority label. The baseline only has to follow the definitions I wrote, so it needs no training examples and ts the
      spread table; the Target and Verdict columns are yours. -->
 
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |

@@ -1,0 +1,154 @@
+{
+  "model": "facebook/bart-large-mnli",
+  "n": 24,
+  "seed": 42,
+  "held_out": true,
+  "used_definitions": true,
+  "scores": {
+    "n": 24,
+    "accuracy": 0.625,
+    "f1_macro": 0.3957671957671958,
+    "per_label": {
+      "question": {
+        "precision": 0.6190476190476191,
+        "recall": 0.9285714285714286,
+        "f1": 0.742857142857143,
+        "support": 14
+      },
+      "rant": {
+        "precision": 0.6666666666666666,
+        "recall": 0.3333333333333333,
+        "f1": 0.4444444444444444,
+        "support": 6
+      },
+      "tip": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 4
+      }
+    }
+  },
+  "predictions": [
+    {
+      "text": "Officially Certified As the title states I'm officially a part of the club! As someone with no prior pharmacy experience, where do y'all recommend I try applying? I have plenty of retail experience, but my end goal is to end up in an independent pharmacy or a hospital.",
+      "gold": "question",
+      "predicted": "question"
+    },
+    {
+      "text": "WHY WOULD I ASK YOU TO FORGE SOMEONE'S SIGNATURE HAVE WE FORGOTTEN THIS IS A CRIMEEEEEE",
+      "gold": "rant",
+      "predicted": "question"
+    },
+    {
+      "text": "Got a job through Amazon pharmacy as a certified pharmacy tech. starting at $24.65. Is it worth it? I feel like that's a very good starting rate since I have absolutely no experience as a pharmacy tech. Plus I heard it's pretty boring.",
+      "gold": "question",
+      "predicted": "question"
+    },
+    {
+      "text": "I quit! Yesterday I quietly walked out of my job. I feel so free. Im going to be pursuing my second job full time now. There was no final straw, I just got tired of pushing vaccines and the increasing workload with no support/short staffing.",
+      "gold": "rant",
+      "predicted": "rant"
+    },
+    {
+      "text": "Tell me why you love being a tech I'm feeling like this isn't a good fit for me. Long hours and being on my feet are taking a toll. So if you love your Tech job, tell us why? Where do you work?",
+      "gold": "question",
+      "predicted": "question"
+    },
+    {
+      "text": "What do you think goes into the mind of someone who doesn't understand insurance? I tell patient that their prescription is not ready because their insurance doesn't cover X medication, but they hear what I'm saying, they don't actually understand what I am saying.",
+      "gold": "rant",
+      "predicted": "question"
+    },
+    {
+      "text": "I have a hospital interview tomorrow! I'm so excited and nervous! This is my first job interview in years. Anybody have insight on questions I should prepare for? Wish me luck",
+      "gold": "question",
+      "predicted": "question"
+    },
+    {
+      "text": "Grossest encounters... What's your all most disgusting thing you've witnessed from a pharmacy patient? I'll go first... Pt comes in splint on nose blood running down his face and on my counter",
+      "gold": "question",
+      "predicted": "question"
+    },
+    {
+      "text": "I NEED A NEW JOB I've been working for my current retail job for 3 years now and I need out!!!! I've been applying for hospital gigs and keep getting rejection after rejection. Can someone please tell me other jobs i can look for and use my PTCB certification?",
+      "gold": "question",
+      "predicted": "question"
+    },
+    {
+      "text": "Retail technician pay is a joke and my coworkers are clowns For the amount of responsibility we have, we should be making a livable wage and idk why people aren't more upset about it. Sorry not sorry, but I'm never going to bust my ass in retail.",
+      "gold": "question",
+      "predicted": "rant"
+    },
+    {
+      "text": "Another pharmacy rant So it's a long story, but basically we had an issue with a woman and her husband. The husband was rude on the phone cussing and saying threats. Fast forward a couple days she called and spoke to my ops manager for AN HOUR AND A HALF.",
+      "gold": "rant",
+      "predicted": "rant"
+    },
+    {
+      "text": "Has anyone else seen the current pharmacy discourse going around social media? Well one of the creators I liked hopped on the pharmacy hate bandwagon and I'm beyond fed up with the public's perception of us. Blaming us for things that have nothing to do with us like prior auths.",
+      "gold": "tip",
+      "predicted": "question"
+    },
+    {
+      "text": "Halal Medications Hi everyone! I feel really bad for not doing something earlier, and was wondering if someone can give me advice. I was helping a patient wearing a Hijab and I realized that her thyroid medication is made out of pork. I couldn't get myself to tell her that it wasn't Halal.",
+      "gold": "question",
+      "predicted": "question"
+    },
+    {
+      "text": "68 missing oxy So I'm a newish certified tech. Yesterday one of our pharmacist noticed we were missing an already opened bottle of oxy 5 mg. It bothers me they didn't report this right away, idk if should say something, just want other inputs or thoughts.",
+      "gold": "question",
+      "predicted": "question"
+    },
+    {
+      "text": "Pronouncing meds Does anyone know of any good sites or quizlets for practicing the pronunciation of common/ tricky drug names? I'm super new to being a tech and I'm struggling with pronouncing a lot of them",
+      "gold": "question",
+      "predicted": "question"
+    },
+    {
+      "text": "Work from home/Data entry CALLING ALL MY WORK FROM HOME TECHS! I have been in retail for 4+ years and have recently gotten a job offer through a SpecialtyRx long term care pharmacy. does anyone have any experience? GIVE ME ALL THE NEWS!! (Good or bad)",
+      "gold": "question",
+      "predicted": "question"
+    },
+    {
+      "text": "Finally breaking free. Well guys, I finally landed in a role outside of Pharmacy Tech. After almost 10 years in the industry I've been hired on as an EHMR Analyst to help roll out Epic. Don't be afraid to branch out, and don't sell yourself short on skills and experience acquired from working in pharmacy.",
+      "gold": "tip",
+      "predicted": "question"
+    },
+    {
+      "text": "why are people illiterate... okay i had a patient come in to pick up medications. he has always been very annoyed every time he picks up his medications. fast forward, he comes in, i tell him i don't have anything ready. then proceeds to say this is ridiculous.",
+      "gold": "tip",
+      "predicted": "question"
+    },
+    {
+      "text": "WE DON'T HAVE ANY ESTRADIOL PATCHES NO WE DON'T HAVE ANY NO I DON'T KNOW WHAT PHARMACIES NEAR YOU HAVE THEM NO I DON'T KNOW WHEN THEY WILL BE BACK IN STOCK THANK YOU FOR COMING TO MY TED TALK",
+      "gold": "question",
+      "predicted": "question"
+    },
+    {
+      "text": "It's starting!!! I thought the pills you'd be cheaperrrrrr boyyyyy did I lie to myself. Matter of fact, it's expensive than the pens and I'm honestly happy they have them in pills now. I can't wait for zepbound and mounjaro lol.",
+      "gold": "tip",
+      "predicted": "question"
+    },
+    {
+      "text": "Working in a prison as a pharmacy tech as a state job Hi everyone! I saw a posting for a Pharmacy Technician position and wanted to ask a couple of honest questions to people who work in a state prison setting. Do pharmacy techs interact with inmates often? How heavy is the workload?",
+      "gold": "question",
+      "predicted": "question"
+    },
+    {
+      "text": "Rage bait Why do brands do this? They couldn't make one a different color Upside don't think anyone would die if they're mixed up",
+      "gold": "rant",
+      "predicted": "question"
+    },
+    {
+      "text": "Costco Pharmacy Techs To anyone who is or has been a certified pharmacy technician at Costco, do you like working there? What is the work/life balance like? Is it truly the best retail pharmacy to work for?",
+      "gold": "question",
+      "predicted": "question"
+    },
+    {
+      "text": "already hate this job I finished my schooling and am now doing the 180 hours of unpaid externship. I find myself feeling so stupid and crying basically everyday. One of the pharmacists is a power trip and everyone keeps blaming me for mistakes I havent even made.",
+      "gold": "rant",
+      "predicted": "question"
+    }
+  ]
+}
