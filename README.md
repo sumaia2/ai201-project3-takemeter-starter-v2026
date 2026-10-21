@@ -1,178 +1,42 @@
 # TakeMeter
 
-> ### 👋 Start here
->
-> **New to this repo? Read [RUNNING.md](RUNNING.md) first** — setup, the
-> notebook, the baseline, and what to do when something breaks.
->
-> Once `python test.py` passes:
->
-> ```bash
-> head -5 data/practice_labels.csv     # the shape your labels.csv needs
-> ```
->
-> Then open `takemeter.ipynb` **in this folder** — in VS Code, or with
-> `jupyter notebook` if you prefer. Pick the kernel: the `.venv` inside this
-> project. Run section 1, which reports the hardware you'll be training on.
-> Everything else waits until you have data.
->
-> Nothing to upload, nothing to connect, no accounts and no keys. The notebook
-> runs on your machine and writes next to your code.
->
-> **The rest of this file is your submission.** Fill it in as you go.
+>## What This Does
 
----
-
-<!-- ─────────────────────────────────────────────────────────────────────────
-     HOW TO USE THIS FILE
-
-     Unit 5 asks for the first five sections. Unit 6 adds the five below them.
-
-     Everything is pasted as TEXT. No screenshots, no images.
-
-     ⚠️ The confusion matrix especially. The notebook prints one as a markdown
-     table, ready to copy. A screenshot of a matrix earns nothing. Paste the
-     table.
-     ───────────────────────────────────────────────────────────────────────── -->
-
-<!-- ═══════════════════════ UNIT 5 — THE BUILD ═══════════════════════ -->
-
-## What This Does
-
-<!-- Your community, and what your classifier sorts posts into. Three or four
-     sentences. -->
-
-
-
----
+TakeMeter sorts posts from r/PharmacyTechnician, a public subreddit for pharmacy technicians, into three types: `question`, `rant` and `tip`. It is a fine-tuned text classifier trained on posts I collected and labeled.
 
 ## Label Taxonomy
 
-<!-- Each label: a one-sentence definition and two real examples from your
-     reading. Then your decision rule for the hardest boundary.
+| Label | Definition | Example 1 | Example 2 |
+|---|---|---|---|
+| `question` | The post asks the community for an answer or advice. | "Why Is It So Hard to Get a Pharmacy Tech Job?" | "Desiccant dispensing?" |
+| `rant` | The post vents frustration and needs no answer. | "Medi-Cal does it again!" | "anyone else tired of the glp 1s?" |
+| `tip` | The post shares information that helps others and asks for nothing. | "Let's share extensions!!" (phone shortcuts for chain pharmacies) | "Cool tip for CPhTs" (the digital badge) |
 
-     The decision rule is worth a point on its own and it's the thing most
-     people leave out. Every taxonomy has a hardest boundary. Name yours. -->
-
-### `label_one`
-
-**Definition:**
-
-**Example 1:**
->
-
-**Example 2:**
->
-
-### `label_two`
-
-**Definition:**
-
-**Example 1:**
->
-
-**Example 2:**
->
-
-### The hardest boundary
-
-**Which two labels:**
-
-**The decision rule I used every time:**
-<!-- e.g. "If the post names a specific checkable fact, it's `analysis`, even
-     if the tone is heated." -->
-
-
-
----
+**Decision rule for the hardest boundary (`rant` vs `question`):** many vents end with a question. Mentally delete the question sentence. If the post still reads as a complete post, it is a `rant`. If it no longer makes sense without the question, it is a `question`.
 
 ## The Dataset
 
-<!-- Where you collected from, how you labelled, your counts, and three hard
-     cases. -->
+- **Source:** public posts from r/PharmacyTechnician, copied from the top-of-the-year listing on old.reddit.com. I left out usernames, links, memes and posts that were only a picture.
+- **Count:** 156 posts. I stopped short of the target of 200 because I was short on time as a parent of a young child. 156 is above the course's 150 floor.
+- **Count per label:** `question` 91 (58%), `rant` 36 (23%), `tip` 29 (19%).
+- **Labeling process:** I labeled the first 20 rows myself, with no help, and marked them `cold` in the note column. Claude suggested labels for the other 136 rows, which are marked `pre-labeled` in the note column, and I read them and corrected the ones I disagreed with.
+- **How posts were chosen:** I did not copy the subreddit's own flair as my label, but I used the Question and Tips & Tricks flair to find more posts of those types, since most of the top posts were rants and memes. Very long posts were shortened to their opening, because the model only reads the first 128 tokens of each post. I left out posts that included someone's mental health history.
+- **What I noticed:** many posts that sound like vents end with a request for advice, so `question` became the biggest label and `rant` was smaller than I expected. `tip` is the smallest label, so its score will be unstable, since only a handful of tip posts will land in the test split. Four tips come from one author, and they read like long study guides, so the model may learn "long study-guide post" instead of "helpful post".
 
-**Where the posts came from:**
-
-**How I labelled them:** <!-- Cold first? Pre-labelled with AI and corrected?
-Say so plainly — the disclosure is required, not penalised. -->
-
-**Counts per label:**
-
-| Label | Count | Share |
-|---|---|---|
-|  |  |  |
-|  |  |  |
-|  |  |  |
-| **Total** |  | 100% |
-
-**Three hard cases**
-
-<!-- Any post that made you pause: what it was, which two labels it could have
-     been, and what you chose. These are worth more than the easy 190. -->
-
-**1.**
-> *The post:*
->
-> *Could have been:*
->
-> *I chose, because:*
-
-**2.**
-> *The post:*
->
-> *Could have been:*
->
-> *I chose, because:*
-
-**3.**
-> *The post:*
->
-> *Could have been:*
->
-> *I chose, because:*
-
----
+**Hard cases:**
+1. **"end of the year":** it was tagged Question and asks "can I have this filled before the end of the year?", but the post is really a vent about a question the poster hears all the time. I labeled it `rant`.
+2. **"After three tries finally passed my PTCB exam":** a celebration that also recommends a study resource. It asks for nothing and names one thing that helped, so I labeled it `tip`.
+3. **"Considering Retail":** it describes a hostile hospital job (a vent) but ends by asking whether this has happened to others. Under my rule it does not make sense without that question, so I labeled it `question`.
 
 ## The Training Run
 
-<!-- Your starting model, your settings, and anything you changed and why. -->
-
-**Base model:**
-
-**Settings:** <!-- epochs, learning rate, batch size, seed -->
-
-**Anything I changed from the defaults, and why:**
-
-**Split sizes:** <!-- train / val / test, and per-label counts in the test
-split. If a label had fewer than about 8 in test, say so — it explains a lot
-of next unit's variance. -->
-
-
-
----
+I fine-tuned a small pretrained language model on my 156 labeled posts using the starter notebook (takemeter.ipynb), with the default settings: 3 epochs, learning rate 2e-5, batch size 16, 128 tokens per post, and a 70/15/15 train/validation/test split. I did not change any hyperparameters. The run was on a CPU (PyTorch 2.14.1+cpu), and the notebook wrote its metrics to results.json and its held-out posts to test_split.csv.
 
 ## How I Used AI
 
-<!-- Two specific moments — what you asked, what came back, what you changed.
+**Moment 1:** I copied pages from old.reddit.com and asked Claude to turn them into CSV rows. It removed usernames and links, cut very long posts down to their opening, and left out posts with mental health details. I accepted the shortening because the model only reads the first 128 tokens.
 
-     ⚠️ Plus disclosure of any pre-labelling. If you had a model pre-label a
-     batch and then read and corrected every one, say that. It's an allowed
-     workflow and disclosing it costs you nothing. Not disclosing it is the
-     problem. -->
-
-**Moment 1**
-
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
-
-**Moment 2**
-
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
-
-**Pre-labelling disclosure:**
+**Moment 2:** I asked Claude to suggest labels for 136 of my posts, using my label definitions. I labeled the first 20 posts myself with no AI help. I read Claude's suggestions and corrected the ones I disagreed with. I also had Claude format my acceptance criteria, but I chose the numbers and the targets myself.
 
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 
