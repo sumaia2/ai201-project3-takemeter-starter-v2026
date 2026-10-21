@@ -76,25 +76,18 @@ The baseline is facebook/bart-large-mnli, a general model that sorts posts using
 | 4.  |  |  |  |  |  |
 | 5.  |  |  |  |  |  |
 
-### Confusion matrix
 
-<!-- ⚠️ TYPED AS A MARKDOWN TABLE. The notebook prints one ready to paste.
-     An image of a matrix earns nothing. -->
+## Confusion Matrix (before the improvement)
 
-| true \ predicted |  |  |  |
+Device: CPU. Seeds: 42, 7, 2024. All three seeds gave the same result: accuracy 0.583, macro F1 0.246. Rows are the true labels and columns are the model's guesses (test split of 24 posts).
+
+| true \ predicted | question | rant | tip |
 |---|---|---|---|
-| **** |  |  |  |
-| **** |  |  |  |
-| **** |  |  |  |
+| **question** | 14 | 0 | 0 |
+| **rant** | 6 | 0 | 0 |
+| **tip** | 4 | 0 | 0 |
 
-**My biggest off-diagonal number, and what it means:**
-<!-- Not "the model made mistakes" — WHICH boundary it didn't learn, and which
-     direction. "7 real analysis posts were called hot_take and only 3 went the
-     other way" is a direction, not just an error rate. -->
-
-
-
----
+The model called every post `question`. The biggest confusion is 6 real `rant` posts called `question`, followed by 4 real `tip` posts called `question`. Nothing was ever predicted as `rant` or `tip`.
 
 ## Verdicts and Diagnoses
 
