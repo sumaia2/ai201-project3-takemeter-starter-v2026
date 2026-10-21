@@ -29,7 +29,7 @@ TakeMeter sorts posts from r/PharmacyTechnician, a public subreddit for pharmacy
 
 ## The Training Run
 
-I fine-tuned a small pretrained language model on my 156 labeled posts using the starter notebook (takemeter.ipynb), with the default settings: 3 epochs, learning rate 2e-5, batch size 16, 128 tokens per post, and a 70/15/15 train/validation/test split. I did not change any hyperparameters. The run was on a CPU (PyTorch 2.14.1+cpu), and the notebook wrote its metrics to results.json and its held-out posts to test_split.csv.
+I fine-tuned istilbert-base-uncased on my 156 labeled posts using the starter notebook (takemeter.ipynb), with the default settings: 3 epochs, learning rate 2e-5, batch size 16, 128 tokens per post, and a 70/15/15 train/validation/test split. I did not change any hyperparameters. The run was on a CPU (PyTorch 2.14.1+cpu), and the notebook wrote its metrics to results.json and its held-out posts to test_split.csv.
 
 ## How I Used AI
 
