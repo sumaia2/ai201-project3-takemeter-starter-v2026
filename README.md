@@ -1,7 +1,6 @@
 # TakeMeter
 
->## What This Does
-
+## What This Does
 TakeMeter sorts posts from r/PharmacyTechnician, a public subreddit for pharmacy technicians, into three types: `question`, `rant` and `tip`. It is a fine-tuned text classifier trained on posts I collected and labeled.
 
 ## Label Taxonomy
