@@ -119,55 +119,39 @@ The model called every post `question`. The biggest confusion is 6 real `rant` p
 
 ## Agreement Report
 
-<!-- Your rate against the staff set, and every disagreement adjudicated.
+My labels matched the staff labels on 24 of 30 posts (80%). I labeled all 30 posts under the staff definitions in data/staff_taxonomy.md before I opened the staff labels. Staff marked sp_014, sp_020 and sp_029 as borderline.
 
-     Remember you labelled these 30 under the STAFF taxonomy in
-     data/staff_taxonomy.md, not your own — so every argument below is made
-     from those definitions and those decision rules. -->
+**sp_008**: "Went back through the club results going back to 2012. Every single year the number of people who enter the spring marathon and don't start it sits between 18 and 23 percent..."
+- Me: hot_take. Staff: analysis.
+- My call: staff is right. The post names a span (2012 onward) and a range (18 to 23 percent), and it uses them to argue against a one-off explanation ("it's the base rate"). Under rule 1 the fact carries the argument. I treated it as an assertion because the data isn't shown, but the taxonomy only requires a checkable fact that does the work, so I applied the rule too strictly.
+- Pile: (a), the rule covered it and I applied it too strictly.
 
-**Agreement rate:** ___ / 30 = ___%
+**sp_014**: "Times are down about 3% since the shoe rules changed, so obviously the shoes are the whole story and the sport has a problem."
+- Me: analysis. Staff: hot_take.
+- My call: staff is right. The writer reaches the conclusion with "so obviously", and the 3% is decoration on a conclusion already made. This is almost the same as the taxonomy's own rule 1 example, where "times are down 3%" is a hot_take. I saw a number and missed that it wasn't load-bearing.
+- Pile: (a), the taxonomy's rule 1 example is almost identical.
 
-<!-- Nobody grades this number. A 60% who argues every disagreement from the
-     stated rules beats a 95% who wrote "staff was right" nine times. Several
-     of the 30 were chosen because they're genuinely ambiguous — you should be
-     winning some of these. -->
+**sp_020**: "Every injury thread on this forum is the same injury and the same three replies."
+- Me: analysis. Staff: hot_take.
+- My call: staff is right. "Three replies" sounds countable, but no count or example is given, so the writer asserts and doesn't show. The taxonomy says the fact has to be checkable and do work in an argument, and here nothing is argued. It is a general claim with no support.
+- Pile: (a), no count was given, so rule 1 covers it.
 
-**Disagreements**
+**sp_024**: "Watching the last 400 of that and I had to stand up. Still standing up actually."
+- Me: hot_take. Staff: reaction.
+- My call: staff is right. Rule 2 separates reaction from hot_take by whether the post is about the writer or about the world. This post makes no general claim; it reports what the writer is doing and feeling right now. My hot_take label doesn't fit.'
+- Pile: (a), rule 2 covers it.
 
-<!-- Three lines each: the post, both labels, and who you think is right and
-     why — grounded in the staff definitions you were both applying.
+**sp_025**: "Blew up at 20 with the pace band still in my hand like it was going to help. Rough one."
+- Me: analysis. Staff: reaction.
+- My call: staff is right. The "20" is a detail in the writer's own race story, and nothing is argued from it. Rule 3 says recency doesn't outrank evidence, but that only applies when there is an argument backed by a fact, and here there isn't one.
+- Pile: (a), rule 3 covers it.
 
-     Then sort each into one of three piles:
-       (a) the rule covered it and I applied it loosely → a consistency problem
-       (b) the rule genuinely doesn't say               → a gap in the definitions
-       (c) the rule is ambiguous here and my reading is defensible → argue it.
-           This is a legitimate win.
+**sp_029**: "Just realised the shoes I set every PB in this year are the ones I bought by accident in the wrong size."
+- Me: analysis. Staff: reaction.
+- My call: this is the closest one, and staff marked it borderline. I still think my reading is defensible, because the post states a checkable fact (every PB, one pair of shoes) and implies a point about shoes. But the taxonomy's analysis definition needs an argument that the fact supports, and this post draws no conclusion. "Just realised" signals a personal, immediate observation, so I accept staff's reaction label, while noting that rule 4 (which label gets most of the words) could support mine.
+- Pile: (c), the rule is ambiguous here and my reading is defensible.
 
-     Pile (a) is the one that matters most for your diagnosis: if you applied a
-     written rule two different ways on 30 posts, that is direct evidence about
-     what you did across your own 200. -->
-
-**1.**
-> *The post:*
->
-> *Staff said / I said:*
->
-> *My call, and why:*
->
-> *Which pile:*
-
-**2.**
-> *The post:*
->
-> *Staff said / I said:*
->
-> *My call, and why:*
->
-> *Which pile:*
-
-**What the pattern in my disagreements tells me:**
-
-
+**Pattern:** five of the six disagreements are pile (a) and one is pile (c). In most of them I labeled on a surface feature, like a number or a firm tone, without checking whether it did the work the rule requires. That is a consistency problem in how I applied the rules, and it may also have happened in my own labeling of `rant` and `question`. The model's result, though, looks more like too few examples: it predicted `question` for every post, and only 25 rants and 20 tips were in the training set.
 
 ---
 
