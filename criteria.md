@@ -88,7 +88,9 @@ On the posts that staff also labeled, my labels match the staff label on at leas
 Among test posts where the model's confidence is above 0.80, at least 90% are predicted correctly, in each of three seeds. I will also report how many test posts fell above 0.80.
 
 **Why this target:** A confident answer should be more reliable than the model's answers overall. With only about 30 test posts, few predictions may be above 0.80, so I will report that count next to the result.
-
+> **Revised in unit 6:** In each of three seeds, at least 90% of the 8 test posts the model is most confident about (the top third by confidence) are predicted correctly.
+>
+> **Why revised:** the original threshold of 0.80 could not be measured. The notebook reports accuracy by confidence thirds, not by a 0.80 cutoff, and it does not report how many posts exceed 0.80. The revised version uses the thing the notebook actually measures. The target of 90% is unchanged.
 ---
 <!-- ─────────────────────────────────────────────────────────────────────────
      UNIT 6 — read this before you change anything above.

@@ -37,10 +37,7 @@ I fine-tuned istilbert-base-uncased on my 156 labeled posts using the starter no
 
 **Moment 2:** I asked Claude to suggest labels for 136 of my posts, using my label definitions. I labeled the first 20 posts myself with no AI help. I read Claude's suggestions and corrected the ones I disagreed with. I also had Claude format my acceptance criteria, but I chose the numbers and the targets myself.
 
-<!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
-
-     Don't fill these in during unit 5.
-     ═══════════════════════════════════════════════════════════════════ -->
+**Unit 6:** I used Claude to explain the baseline, the three-seed run and the confusion matrix, and to fix notebook errors. I ran every command myself. Claude drafted my six agreement-report calls from the staff taxonomy, and I read and kept them. Claude also drafted the verdicts, the improvement write-up and this section from my real results, and I checked them against my output. I labeled all 30 staff posts myself with no AI help, and I chose the one improvement (more epochs) from my own diagnosis.
 
 ---
 
@@ -65,16 +62,18 @@ The baseline is facebook/bart-large-mnli, a general model that sorts posts using
 
 ## Run Log — Before
 
-<!-- Five criteria across three seeds. The notebook's section 6 prin00 on `rant` and `tip`. That is an imbalance problem: only 25 rants and 20 tips were in the 108 training posts, so the model learned to guess the majority label. The baseline only has to follow the definitions I wrote, so it needs no training examples and ts the
-     spread table; the Target and Verdict columns are yours. -->
+Device: CPU (PyTorch 2.14.1+cpu). Seeds: 42, 7, 2024. Three epochs, learning rate 2e-5, batch size 16, distilbert-base-uncased. Produced by the notebook (takemeter.ipynb, section 6) and saved in results_three_seeds_before.json.
 
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Overall accuracy | at least 0.50 | 0.583 | 0.583 | 0.583 | MET |
+| 2. Every label F1 | at least 0.60 | lowest 0.000 | lowest 0.000 | lowest 0.000 | MISSED |
+| 3. No label above 70% of rows | at most 70% | 58% | 58% | 58% | MET |
+| 4. Agreement with staff labels | at least 80% | 80% (24 of 30) | same | same | MET |
+| 5. Top third by confidence correct (revised) | at least 90% | 8 of 8 | 7 of 8 | 7 of 8 | MISSED |
+
+Real output (takemeter.ipynb, section 6, seed 42): `accuracy 0.583   macro F1 0.246`.
+
 
 
 ## Confusion Matrix (before the improvement)
@@ -91,28 +90,21 @@ The model called every post `question`. The biggest confusion is 6 real `rant` p
 
 ## Verdicts and Diagnoses
 
-<!-- MET or MISSED against LAST UNIT's target. The target has to hold across
-     all three seeds, not turn up sometimes. -->
+Verdicts are read against the targets in criteria.md, written in Unit 5, across the three seeds. The "after" results are in the Run Log — After section.
 
 | # | Criterion | Target | Verdict | How I decided |
 |---|---|---|---|---|
-| 1 |  |  |  |  |
-| 2 |  |  |  |  |
-| 3 |  |  |  |  |
-| 4 |  |  |  |  |
-| 5 |  |  |  |  |
+| 1 | Overall accuracy | at least 0.50 | MET | 0.583 in all three seeds. This only happened because the model called every test post `question`, and 14 of the 24 test posts are questions. |
+| 2 | Every label F1 | at least 0.60 | MISSED | `rant` and `tip` scored F1 0.000 in all three seeds. |
+| 3 | No label above 70% of rows | at most 70% | MET | `question` is 91 of 156 rows (58%). |
+| 4 | Agreement with staff labels | at least 80% | MET | 24 of 30 posts matched (80%), exactly on the target. |
+| 5 | Top third by confidence correct | at least 90% (revised) | MISSED | The top third was 8 of 8, 7 of 8 and 7 of 8 correct in the three seeds. One wrong post in one seed is enough to miss. |
 
-**Diagnoses**
+**Criterion 2 (cause: too few examples for two labels).** The training set had 63 `question`, 25 `rant` and 20 `tip` posts. In all three seeds the confusion matrix shows every test post predicted as `question`, including all 6 `rant` and all 4 `tip` posts, so this is not a quirk of one split. The validation loss was still falling at epoch 3 while the predictions never changed. The baseline, which uses no training data, reached F1 0.444 on `rant`, so the labels can be learned and the limit is the amount of data. The test split also holds only 6 `rant` and 4 `tip` posts, so one post moves those scores a lot.
 
-<!-- For each miss: the cause, and how you know. The four common causes are:
-     too few examples for a label, a boundary you applied inconsistently, a
-     genuinely hard label pair, and a task the model can't reach from this
-     much data.
+**Criterion 5 (cause: very small thirds, and low confidence throughout).** The misses are one post each in the most-confident third, and with 8 posts per third, one wrong post is a 12.5-point drop. The model's confidence does carry information: the least-confident third was right only 13 to 38% of the time. But the average confidence on correct predictions was only 0.52 to 0.71, because the model spreads its probability across three labels while only ever predicting `question`.
 
-     ⚠️ Use your agreement report as evidence. It is the only instrument you
-     have that can tell a LABELLING problem from a MODEL problem, and this
-     section is graded on whether you used it that way. -->
-
+**Revision to criterion 5.** I revised criterion 5 because it could not be measured as written. The original asked about posts with confidence above 0.80, but the notebook reports accuracy by confidence thirds and does not say how many posts exceed 0.80. The original line and the revision are both in criteria.md, with the reason. The 90% target did not change. No other criterion was revised.
 
 
 ---
@@ -157,39 +149,40 @@ My labels matched the staff labels on 24 of 30 posts (80%). I labeled all 30 pos
 
 ## The Improvement
 
-**What I changed:**
+**Change:** I raised the number of training epochs from 3 to 8 and changed nothing else (same labels, same data, same seeds, same learning rate and batch size).
 
-**Which diagnosis pointed at it:**
+**Why:** the diagnosis for criterion 2 was that the model predicted `question` for every post. In the before run, the validation loss was still falling at epoch 3 (about 1.0 down to 0.92) while the predictions never changed, so I guessed the model needed more passes over the data before it started separating `rant` and `tip`.
 
-### Run Log — After
+**Did it help?** No. Accuracy stayed at 0.583 and macro F1 at 0.246 in all three seeds, and `rant` and `tip` stayed at F1 0.000. The validation loss did fall (seed 42: 0.924 to 0.764, seed 7: 0.954 to 0.835, seed 2024: 0.925 to 0.740), but that came from the model fitting the label proportions in the training set (58% `question`), not from learning the difference between labels. I know it did not help because every number in the run log is identical to the before run and the confusion matrix is unchanged. The only difference is that criterion 5 improved by one post in seed 7, which is too small to call an effect.
+
+## Run Log — After
+
+Same device, seeds and settings as the before run, except for eight epochs. Produced by takemeter.ipynb (section 6) and saved in results_three_seeds_after.json.
 
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Overall accuracy | at least 0.50 | 0.583 | 0.583 | 0.583 | MET |
+| 2. Every label F1 | at least 0.60 | lowest 0.000 | lowest 0.000 | lowest 0.000 | MISSED |
+| 3. No label above 70% of rows | at most 70% | 58% | 58% | 58% | MET |
+| 4. Agreement with staff labels | at least 80% | 80% (24 of 30) | same | same | MET |
+| 5. Top third by confidence correct (revised) | at least 90% | 8 of 8 | 8 of 8 | 7 of 8 | MISSED |
 
-**Did it help, and how do I know:**
+Confusion matrix after the change (rows are the true labels, columns are the model's guesses, 24 test posts). It is the same in every seed:
 
-<!-- If it didn't, say so. Relabelling that didn't help is a genuinely
-     interesting result and earns full credit. -->
-
-
-
----
+| true \ predicted | question | rant | tip |
+|---|---|---|---|
+| **question** | 14 | 0 | 0 |
+| **rant** | 6 | 0 | 0 |
+| **tip** | 4 | 0 | 0 |
 
 ## What's Still Broken
 
-<!-- For each criterion still missed: what you'd do, and why you stopped. -->
+- **Criterion 2 is still missed.** `rant` and `tip` score F1 0.000 in every seed, because the model has only 25 `rant` and 20 `tip` training posts against 63 `question`. If I had more time, I would add about 30 more posts each for `rant` and `tip`, because more epochs did not work and the amount of data is the limit. I stopped at one change because the unit allows only one.
+- **Criterion 5 is still missed,** by one post in one seed. With 8 posts per third, this target is very sensitive to a single mistake, and the model's confidence is low throughout.
+- **My target for criterion 1 was too easy.** A model that guessed `question` for everything scored 0.583 and met it, so it did not show that anything was learned. I would tighten it to a macro F1 of at least 0.50, which this model would miss.
+- **Agreement with staff sat exactly on its target.** One more disagreement would have missed it, and five of my six disagreements came from applying a rule loosely, so my own `rant` and `question` boundary may have been applied loosely too.
 
-
-
-**The gap between what I meant my labels to capture and what the model
-learned:**
-<!-- Two sentences. Your confusion matrix is the evidence. -->
-
+**The gap between what my labels meant and what the model learned:** I meant `rant`, `question` and `tip` to describe what a post is doing (venting, asking, helping). The model learned only that most posts look like questions, because `question` was 58% of my data and the other two labels had too few examples to learn from. The confusion matrix shows this directly: nothing was ever predicted as `rant` or `tip`.
 
 
 <!-- ═════════════════════════════════════════════════════════════════════
